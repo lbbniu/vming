@@ -1,0 +1,19 @@
+{
+    "name": "lbbniu/vming",
+    "description": "LbbEngine vming",
+    "license": "BSD-2",
+    "authors": [
+        {
+            "name": "lbbniu"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/lbbniu/LbbEngine.git"
+        }
+    ]
+}

@@ -1,8 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lbbniu
- * Date: 16/5/22
- * Time: 下午12:00
- */
-var_dump($_SERVER);
+require __DIR__ . '/../init_autoloader.php';
+
+use Eva\EvaEngine\Engine;
+
+$engine = new Engine(__DIR__ . '/..');
+
+$engine
+    ->loadModules(include __DIR__ . '/../config/modules.' . $engine->getAppName() . '.php')
+    ->bootstrap()
+    ->run();
