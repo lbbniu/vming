@@ -1377,7 +1377,7 @@ class Engine
      * @param string Application name for some cache prefix
      * @param string Application mode, 'cli' or 'web' , 'cli' for CLI mode
      */
-    public function __construct($appRoot = null, $appName = 'LbbEngine', $appMode = 'web')
+    public function __construct($appRoot = null, $appName = 'lbbengine', $appMode = 'web')
     {
         self::$appStartTime = microtime(true);
         $this->appRoot = $appRoot ? $appRoot : __DIR__;
