@@ -5,3 +5,4 @@
  * Date: 16/5/22
  * Time: 下午12:00
  */
+var_dump($_SERVER);
