@@ -1,0 +1,21 @@
+<?php
+/**
+ * LbbEngine (http://lbbniu.com/)
+ * A development engine based on Phalcon Framework.
+ *
+ * @copyright Copyright (c) 2014-2015 LbbEngine Team (https://github.com/lbbniu/LbbEngine)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+namespace Lbb\Exception;
+
+/**
+ * Basic Exception Interface, defined http status code as a part of exception
+ * @package Lbb\Exception
+ */
+interface ExceptionInterface
+{
+    /**
+     * @return int
+     */
+    public function getStatusCode();
+}

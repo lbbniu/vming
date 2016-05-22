@@ -1,0 +1,171 @@
+<?php
+/**
+ * LbbEngine (http://lbbniu.com/)
+ * A development engine based on Phalcon Framework.
+ *
+ * @copyright Copyright (c) 2014-2015 LbbEngine Team (https://github.com/lbbniu/LbbEngine)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+namespace Lbb\Mvc;
+
+use Phalcon\Mvc\Model\Resultset\Simple as SimpleResultSet;
+use Lbb\Mvc\Model\Manager as ModelManager;
+use Phalcon\Mvc\Model as PhalconModel;
+use Lbb\Form;
+
+/**
+ * LbbEngine Base Model
+ * - Support master / slave db
+ * - Support db table prefix
+ * - Support inject ORM relationships
+ * @package Lbb\Mvc
+ */
+class Model extends PhalconModel
+{
+    /**
+     * @var string
+     */
+    protected $prefix;
+
+    /**
+     * @var string
+     */
+    protected $tableName;
+
+    /**
+     * @var bool
+     */
+    protected $useMasterSlave = true;
+
+    /**
+     * @var Form
+     */
+    protected $modelForm;
+
+    /**
+     * @var array
+     */
+    public static $injectRelations;
+
+    /**
+     * @param Form $form
+     * @return $this
+     */
+    public function setModelForm(Form $form)
+    {
+        $this->modelForm = $form;
+        return $this;
+    }
+
+    /**
+     * @return Form
+     */
+    public function getModelForm()
+    {
+        return $this->modelForm;
+    }
+
+    /**
+     * @param $tablePrefix
+     * @return $this
+     */
+    public function setPrefix($tablePrefix)
+    {
+        $this->prefix = $tablePrefix;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix()
+    {
+        if ($this->prefix) {
+            return $this->prefix;
+        }
+        return $this->prefix = ModelManager::getDefaultPrefix();
+    }
+
+    /**
+     * Get db table full name
+     * @return string
+     */
+    public function getSource()
+    {
+        if (!$this->tableName) {
+            $this->tableName = parent::getSource();
+        }
+        return $this->getPrefix() . $this->tableName;
+    }
+
+    /**
+     * Dump model entity data as an array
+     * @param array $dataStructure
+     * @return array|null
+     */
+    public function dump(array $dataStructure = null)
+    {
+        $data = null;
+        if (!$dataStructure) {
+            return $data;
+        }
+        foreach ($dataStructure as $key => $subdata) {
+            if (is_numeric($key)) {
+                $data[$subdata] = $this->$subdata;
+            } elseif (is_array($subdata)) {
+                if (!empty($this->$key)) {
+                    if ($this->$key instanceof SimpleResultSet || is_array($this->$key)) {
+                        $subdatas = array();
+                        foreach ($this->$key as $child) {
+                            if (method_exists($child, 'dump')) {
+                                $subdatas[] = $child->dump($subdata);
+                            }
+                        }
+                        $data[$key] = $subdatas;
+                    } elseif (method_exists($this->$key, 'dump')) {
+                        $data[$key] = $this->$key->dump($subdata);
+                    } else {
+                        $data[$key] = null;
+                    }
+                } else {
+                    $data[$key] = null;
+                }
+
+            } elseif (is_string($subdata)) {
+                $data[$key] = $this->$subdata();
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return $this
+     */
+    public function loadRelations()
+    {
+        $relations = $this->getDI()->getModuleManager()->getInjectRelations($this);
+        if (!$relations) {
+            return $this;
+        }
+        foreach ($relations as $relation) {
+            $relationType = $relation['relationType'];
+            call_user_func_array(array($this, $relationType), $relation['parameters']);
+        }
+        return $this;
+    }
+
+    /**
+     * Open master / slave mode
+     * Load ORM relationship injection
+     */
+    public function initialize()
+    {
+        if (true === $this->useMasterSlave) {
+            $this->setWriteConnectionService('dbMaster');
+            $this->setReadConnectionService('dbSlave');
+        }
+
+        $this->loadRelations();
+    }
+}
