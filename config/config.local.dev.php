@@ -2,11 +2,11 @@
 
 return array(
     'debug' => 1,
-    'baseUri' => 'http://local.evaengine.com',
-    'staticBaseUri' => 'http://static.evaengine.com',
+    'baseUri' => 'http://phalcon.vliang.com',
+    'staticBaseUri' => 'http://phalcon.vliang.com',
     'cors' => array(
         array(
-            'domain' => 'evaengine.com'
+            'domain' => 'vliang.com'
         ),
         array(
             'domain' => 'localhost'
@@ -24,13 +24,13 @@ return array(
      */
     'domains' => array(
         'main' => array(
-            'domain' => 'local.evaengine.com',
+            'domain' => 'phalcon.vliang.com',
             'http' => true, // 是否支持 http 协议
             'https' => false, // 是否支持 https 协议
         ),
     ),
     'user' => array(
-        'loginCookieDomain' => '.local.evaengine.com'
+        'loginCookieDomain' => '.phalcon.vliang.com'
     ),
     'permission' => array(
         'disableAll' => false,
@@ -177,9 +177,9 @@ return array(
         'encryption' => 'ssl',
         'username' => 'AlloVince',
         'password' => '',
-        'defaultFrom' => array('noreply@evaengine.com' => 'EvaEngine'),
-        'systemPath' => 'http://local.evaengine.com',
-        'staticPath' => 'http://local.evaengine.com',
+        'defaultFrom' => array('noreply@evaengine.com' => 'LbbEngine'),
+        'systemPath' => 'http://phalcon.vliang.com',
+        'staticPath' => 'http://phalcon.vliang.com',
     ),
     'session' => array(
         'adapter' => 'Libmemcached',
