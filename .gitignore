@@ -1,0 +1,6 @@
+composer.lock
+vendor/*
+log/*
+.idea*
+*.swp
+/.idea/
