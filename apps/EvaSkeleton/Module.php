@@ -32,7 +32,7 @@ class Module implements ModuleDefinitionInterface, StandardInterface
     /**
      * Registers the module auto-loader
      */
-    public function registerAutoloaders()
+    public function registerAutoloaders(\Phalcon\DiInterface  $di=null)
     {
     }
 
@@ -41,7 +41,7 @@ class Module implements ModuleDefinitionInterface, StandardInterface
      *
      * @param Phalcon\DI $di
      */
-    public function registerServices($di)
+    public function registerServices(\Phalcon\DiInterface  $di)
     {
         $dispatcher = $di->getDispatcher();
         $dispatcher->setDefaultNamespace('EvaSkeleton\Controllers');
