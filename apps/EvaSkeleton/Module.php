@@ -5,8 +5,8 @@ namespace EvaSkeleton;
 use Phalcon\Loader;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
-use Eva\EvaEngine\Module\StandardInterface;
-use Eva\EvaEngine\Mvc\View;
+use Lbb\Module\StandardInterface;
+use Lbb\Mvc\View;
 
 class Module implements ModuleDefinitionInterface, StandardInterface
 {

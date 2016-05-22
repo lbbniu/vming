@@ -2,9 +2,9 @@
 
 namespace EvaSkeleton\Controllers;
 
-use Eva\EvaEngine\Exception;
+use Lbb\Exception;
 
-class IndexController extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
+class IndexController extends \Lbb\Mvc\Controller\ControllerBase
 {
     public function indexAction()
     {
