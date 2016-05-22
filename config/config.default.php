@@ -138,7 +138,7 @@ return array(
         ),
     ),
     'app' => array(
-        'title' => 'EvaEngine',
+        'title' => 'lbbengine',
         'subtitle' => '',
     ),
     'logger' => array(
