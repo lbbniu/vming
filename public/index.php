@@ -1,7 +1,11 @@
 <?php
+
+ini_set('error_reporting', E_ALL | E_STRICT);
+ini_set('display_errors', 1);
+
 require __DIR__ . '/../init_autoloader.php';
 
-use Eva\EvaEngine\Engine;
+use Lbb\Engine;
 
 $engine = new Engine(__DIR__ . '/..');
 
